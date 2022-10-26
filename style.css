@@ -1,0 +1,78 @@
+*{
+  margin: 0px;
+  padding: 0px; 
+}
+
+html{
+  text-align: center;
+  background-color: #222;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1{
+  color: #ddd;
+}
+
+.titleLookupSection{
+  width: 1200px;
+  margin: 10px auto;
+  padding: 20px 0px;
+  background-color: #111;
+  border: #000 1px solid;
+}
+
+#comboBox_title1, #comboBox_title2{
+  font-size: 25px;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
+.titleLookupSection > div{
+  color: white;
+  display:inline-block;
+  vertical-align:top;
+}
+
+.titleLookupSection .title1Section{
+  width: 500px;
+  padding: 0px 5px;
+  border: #333 1px solid;
+}
+
+.titleLookupSection .title2Section{
+  width: 520px;
+  padding: 0px 5px;
+  border: #333 1px solid;
+}
+
+.titleLookupSection ul{
+  list-style: none;
+  text-align: left;
+}
+
+.dataList li div{
+  font-size: 14px;
+  display:inline-block;
+  vertical-align:bottom;
+  margin-right: 8px;
+  /* border: 1px solid salmon; */
+}
+
+.dataList li div:first-child{
+  font-size: 10px;
+  height: 20px;
+  padding: 3px;
+  background-color: #222;
+  color: #777;
+}
+.dataList li div:nth-child(2){
+  color:rgb(208, 226, 43)
+}
+.dataList li div:nth-child(3){
+  color:rgb(148, 142, 236)
+}
+.dataList li div:nth-child(4){
+  color:rgb(166, 187, 194)
+}
+
