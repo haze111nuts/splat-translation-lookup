@@ -1,7 +1,7 @@
-function loadDataIntoResult(){
-    var titleAdjDatObjectEN = dataEN["CommonMsg/Byname/BynameAdjective"];
-    var titleAdjDatObjectJP = dataJP["CommonMsg/Byname/BynameAdjective"];
-    var titleAdjDatObjectCH = dataCH["CommonMsg/Byname/BynameAdjective"];
+function loadDataIntoResult(data){
+    var titleAdjDatObjectEN = data[0]["CommonMsg/Byname/BynameAdjective"];
+    var titleAdjDatObjectJP = data[1]["CommonMsg/Byname/BynameAdjective"];
+    var titleAdjDatObjectCH = data[2]["CommonMsg/Byname/BynameAdjective"];
 
     var resulAdjtHtml = "";
     for (const [key, value] of Object.entries(titleAdjDatObjectEN)) {
@@ -14,9 +14,9 @@ function loadDataIntoResult(){
       }
     $("#result_title1").html(resulAdjtHtml);
 
-    var titleSubDatObjectEN = dataEN["CommonMsg/Byname/BynameSubject"];
-    var titleSubDatObjectJP = dataJP["CommonMsg/Byname/BynameSubject"];
-    var titleSubDatObjectCH = dataCH["CommonMsg/Byname/BynameSubject"];
+    var titleSubDatObjectEN = data[0]["CommonMsg/Byname/BynameSubject"];
+    var titleSubDatObjectJP = data[1]["CommonMsg/Byname/BynameSubject"];
+    var titleSubDatObjectCH = data[2]["CommonMsg/Byname/BynameSubject"];
     var resultSubHtml = "";
     for (const [key, value] of Object.entries(titleSubDatObjectEN)) {
         if(value.indexOf("[group") === -1){
@@ -35,15 +35,23 @@ function getRidOfRuby(text){
     return text.replace(/\s*\[.*?\]\s*/g, '');
 }
 
+function getData() {
+    var source = "https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/data/language/";
+    var langs = ["USen","JPja","TWzh"]    
+    var promises = [];
+
+    for (lang of langs){
+        promises.push($.getJSON(source+lang+".json"));
+    }
+
+    Promise.all(promises)
+    .then(data => loadDataIntoResult(data));
+}
+
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
 $(document).ready(function () {
 
-    $.get("https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/data/language/USen.json", function(data, status){
-        console.log("Status: " + status);
-        console.log(data);
-      });
-
-    loadDataIntoResult();
+    getData();
     $('#comboBox_title1').bind('keydown keypress keyup change', function() {
         var search = this.value.toLowerCase();
         var $li = $("#result_title1 li").hide();
