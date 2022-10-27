@@ -38,6 +38,11 @@ function getRidOfRuby(text){
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
 $(document).ready(function () {
 
+    $.get("https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/data/language/USen.json", function(data, status){
+        console.log("Status: " + status);
+        console.log(data);
+      });
+
     loadDataIntoResult();
     $('#comboBox_title1').bind('keydown keypress keyup change', function() {
         var search = this.value.toLowerCase();
