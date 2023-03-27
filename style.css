@@ -50,11 +50,11 @@ h2{
 }
 
 .titleBox1{
-  transform: rotate(-1.5deg);
+  transform: rotate(-1.1deg);
 }
 
 .titleBox2{
-  transform: rotate(1deg);
+  transform: rotate(0.5deg);
 }
 
 .titleBox1 .titleLabel{
@@ -75,7 +75,7 @@ h2{
 .resultSection{
   padding: 10px 0;
   margin-top: 30px;
-  background-color: #4b4b4b;
+  background-color: #444444;
 }
 
 .resultSection ul{
@@ -93,18 +93,23 @@ h2{
   text-align: left;
 }
 
+.dataList li:hover{
+  background-color: #222;
+}
+
 .dataList li div{
   font-size: 14px;
   display:inline-block;
   vertical-align:bottom;
-  margin-right: 8px;
+  margin: auto 4px;
+  padding: 2px 0;
   /* border: 1px solid salmon; */
 }
 
 #result_title1 li div:last-child, #result_title2 li div:first-child{
   font-size: 10px;
   padding: 3px;
-  background-color: #222;
+  background-color: rgba(0 0 0/0.5);
   color: #777;
 }
 #result_title1 li div:nth-child(3), #result_title2 li div:nth-child(2){
