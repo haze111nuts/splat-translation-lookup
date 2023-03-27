@@ -1,4 +1,4 @@
-function loadDataIntoResult(){
+function loadFirstTitleResult(){
     var titleAdjDatObjectEN = dataEN["CommonMsg/Byname/BynameAdjective"];
     var titleAdjDatObjectJP = dataJP["CommonMsg/Byname/BynameAdjective"];
     var titleAdjDatObjectCH = dataCH["CommonMsg/Byname/BynameAdjective"];
@@ -6,14 +6,16 @@ function loadDataIntoResult(){
     var resulAdjtHtml = "";
     for (const [key, value] of Object.entries(titleAdjDatObjectEN)) {
         resulAdjtHtml += "<li>";
-        resulAdjtHtml += "<div>"+key+"</div>";
-        resulAdjtHtml += "<div>"+value+"</div>";
-        resulAdjtHtml += "<div>"+getRidOfRuby(titleAdjDatObjectJP[key])+"</div>";
         resulAdjtHtml += "<div>"+titleAdjDatObjectCH[key]+"</div>";
+        resulAdjtHtml += "<div>"+getRidOfRuby(titleAdjDatObjectJP[key])+"</div>";
+        resulAdjtHtml += "<div>"+value+"</div>";
+        resulAdjtHtml += "<div>"+key+"</div>";
         resulAdjtHtml += "</li>";
       }
     $("#result_title1").html(resulAdjtHtml);
+}
 
+function loadSecondTitleResult(){
     var titleSubDatObjectEN = dataEN["CommonMsg/Byname/BynameSubject"];
     var titleSubDatObjectJP = dataJP["CommonMsg/Byname/BynameSubject"];
     var titleSubDatObjectCH = dataCH["CommonMsg/Byname/BynameSubject"];
@@ -29,6 +31,11 @@ function loadDataIntoResult(){
         }
       }
     $("#result_title2").html(resultSubHtml);
+}
+
+function loadDataIntoResult(){
+    loadFirstTitleResult();
+    loadSecondTitleResult();
 }
 
 function getRidOfRuby(text){
