@@ -1,15 +1,14 @@
+var langs = ["USen","JPja","TWzh"];
 
 function loadAdjectiveTitleResult(data){
-    var titleAdjDatObjectEN = data[0]["CommonMsg/Byname/BynameAdjective"];
-    var titleAdjDatObjectJP = data[1]["CommonMsg/Byname/BynameAdjective"];
-    var titleAdjDatObjectCH = data[2]["CommonMsg/Byname/BynameAdjective"];
-
+    var titleCategory ="CommonMsg/Byname/BynameAdjective";
     var resulAdjtHtml = "";
-    for (const [key, value] of Object.entries(titleAdjDatObjectEN)) {
-        resulAdjtHtml += "<li>";
-        resulAdjtHtml += "<div class='ch'>"+titleAdjDatObjectCH[key]+"</div>";
-        resulAdjtHtml += "<div class='jp'>"+getRidOfRuby(titleAdjDatObjectJP[key])+"</div>";
-        resulAdjtHtml += "<div class='en'>"+value+"</div>";
+
+    for (const key of Object.keys(data[0][titleCategory])) {
+        resulAdjtHtml += "<li class='fade'>";
+        for (let i = data.length - 1; i >= 0; i--) {
+            resulAdjtHtml += "<div class='"+ langs[i] + "'>"+cleanUp(data[i][titleCategory][key])+"</div>";
+        }   
         resulAdjtHtml += "<div class='id'>"+key+"</div>";
         resulAdjtHtml += "</li>";
       }
@@ -17,21 +16,23 @@ function loadAdjectiveTitleResult(data){
 }
 
 function loadSubjectTitleResult(data){
-    var titleSubDatObjectEN = data[0]["CommonMsg/Byname/BynameSubject"];
-    var titleSubDatObjectJP = data[1]["CommonMsg/Byname/BynameSubject"];
-    var titleSubDatObjectCH = data[2]["CommonMsg/Byname/BynameSubject"];
-
+    var titleCategory ="CommonMsg/Byname/BynameSubject";
+    var isGarbage = (content) => content.toString().indexOf("[group") !== -1;
     var resultSubHtml = "";
-    for (const [key, value] of Object.entries(titleSubDatObjectEN)) {
-        if(value.indexOf("[group") === -1){
-            resultSubHtml += "<li>";
-            resultSubHtml += "<div class='id'>"+key+"</div>";
-            resultSubHtml += "<div class='en'>"+value+"</div>";
-            resultSubHtml += "<div class='jp'>"+getRidOfRuby(titleSubDatObjectJP[key])+"</div>";
-            resultSubHtml += "<div class='ch'>"+titleSubDatObjectCH[key]+"</div>";
-            resultSubHtml += "</li>";
-        }
-      }
+
+    for (const key of Object.keys(data[0][titleCategory])) {
+        var hasContent = (langData) => !isGarbage(langData[titleCategory][key]);
+
+            if (data.some(hasContent)) {
+                resultSubHtml += "<li class='fade'>";
+                resultSubHtml += "<div class='id'>"+key+"</div>";
+                for (langData of data) {
+                    var displayKey = isGarbage(langData[titleCategory][key]) ? key.slice(0, -1)+'0' : key;
+                        resultSubHtml += "<div class='"+ langs[data.indexOf(langData)] + "'>"+cleanUp(langData[titleCategory][displayKey])+"</div>";
+                }   
+                resultSubHtml += "</li>";    
+            }
+    }
     $("#resultSub").html(resultSubHtml);
 }
 
@@ -40,13 +41,12 @@ function loadDataIntoResult(data){
     loadSubjectTitleResult(data);
 }
 
-function getRidOfRuby(text){
+function cleanUp(text){
     return text.replace(/\s*\[.*?\]\s*/g, '');
 }
 
 function getData() {
     var source = "https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/data/language/";
-    var langs = ["USen","JPja","TWzh"]    
     var promises = [];
 
     for (lang of langs){
@@ -63,7 +63,7 @@ function setUpBannerTitleClickEvents(){
 
     $('#resultAdj').on('click','li', function(event){
         selectedAdj=[];
-        for (const lang of langList) {
+        for (const lang of langs) {
             selectedAdj.push($(this).find("."+lang).text());
         }
         var adjWithSpace = curLangIndex==0 ? selectedAdj[curLangIndex]+" " : selectedAdj[curLangIndex];
@@ -74,7 +74,7 @@ function setUpBannerTitleClickEvents(){
 
     $('#resultSub').on('click','li', function(event){
         selectedSub=[];
-        for (const lang of langList) {
+        for (const lang of langs) {
             selectedSub.push($(this).find("."+lang).text());
         }
         $('.bannerPreview .title span:last-child').html(selectedSub[curLangIndex]);
@@ -105,7 +105,6 @@ function swapTitleLang(){
 var fontList = ["","Kurokane","DFPT_AZ5"]
 var selectedAdj = ["Splatlandian","バンカラな","蠻頹的"]
 var selectedSub = ["Youth","若者","年輕人"]
-var langList = ['en','jp','ch'];
 var curLangIndex = 0;
 
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
