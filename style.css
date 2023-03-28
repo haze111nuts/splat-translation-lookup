@@ -114,8 +114,10 @@ h2{
   width: 20px;
   margin: 0 10px;
   cursor: pointer;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
-
 .prev{
   width: 0; 
   height: 0; 
@@ -160,6 +162,9 @@ h2{
   z-index: 1000;
   line-height: 100%;
   transform: skewX(-5deg);
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 .bannerPreview .name{
   font-family: "Splat-title";
@@ -238,9 +243,11 @@ h2{
 #resultSub{
   text-align: left;
 }
+
 .dataList li:hover{
   background-color: #333;
   cursor: pointer;
+  border-radius: 5px;
 }
 .selectedItem{
   background-color: #222;
