@@ -15,32 +15,37 @@
   <script type="text/javascript" src="script.js" ></script>
   </head>
   <body>
-    <div class="headerWrap">
-      <h1>Splatoon3 EN/JP/CH Title Look-up</h1>
-      <h2>斯普拉遁3 英日中稱號對照機</h2>
-    </div>
     <div class="main">
-      <div class="bannerPreview">
-        <img src="Npl_Tutorial00.png">
-        <div class="title"><span>Splatlandian</span> <span>Youth</span></div>
-        <div class="name">Player</div>
-        <div class="number">#0001</div>
+      <div class="headerWrap">
+        <h1>Splatoon3 EN/JP/CH Title Look-up</h1>
+        <h2>斯普拉遁3 英日中稱號對照機</h2>
+      </div>
+
+      <div class="bannerNav">
+        <div class="bannerSideBT prev"></div>
+        <div class="bannerPreview">
+          <img src="Npl_Tutorial00.png">
+          <div class="title"><span></span><span></span></div>
+          <div class="name">Player</div>
+          <div class="number">#0001</div>
+        </div>
+        <div class="bannerSideBT next"></div>
       </div>
       
       <div class="searchBoxSection">
         <div class="searchBoxAdj">
           <div class="searchBoxLabel">Title 1 Search</div>
-          <input type="text" id="comboBox_title1" />
+          <input type="text" id="comboBoxAdj" />
         </div>
         <div class="searchBoxSub">
           <div class="searchBoxLabel">Title 2 Search</div>
-          <input type="text" id="comboBox_title2" />
+          <input type="text" id="comboBoxSub" />
         </div>
       </div>
 
       <div class="resultSection">
-          <ul id="result_title1" class="dataList"></ul>
-          <ul id="result_title2" class="dataList"></ul>
+          <ul id="resultAdj" class="dataList"></ul>
+          <ul id="resultSub" class="dataList"></ul>
       </div>
 
     </div>

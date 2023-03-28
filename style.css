@@ -1,40 +1,94 @@
+@font-face {
+  font-family: "Splat-title";
+  src: url("./assets/fonts/SplatoonTitle.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Splat-text";
+  src: url("./assets/fonts/SplatoonText.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+/* Language Fonts */
+/* Japan */
+@font-face {
+  font-family: "Kurokane";
+  src: url("./assets/fonts/JPja/Kurokane.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Rowdy";
+  src: url("./assets/fonts/JPja/Rowdy.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+/* Chinese (Simplified) */
+@font-face {
+  font-family: "HanyiZongyi";
+  src: url("./assets/fonts/CNzh/hanyi_zongyi.ttf");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "HuakangZongyi";
+  src: url("./assets/fonts/CNzh/huakang_xinzongyi.ttc");
+  font-style: normal;
+  font-weight: normal;
+}
+/* Korean */
+@font-face {
+  font-family: "KCUBEr";
+  src: url("./assets/fonts/KRko/AsiaKCUBE-R.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "KERINm";
+  src: url("./assets/fonts/KRko/AsiaKERIN-M.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+/* Chinese (Traditional) */
+@font-face {
+  font-family: "DFPT_AZ5";
+  src: url("./assets/fonts/TWzh/DFPT_AZ5.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "DFPT_ZY9";
+  src: url("./assets/fonts/TWzh/DFPT_ZY9.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+
+
 *{
   margin: 0px;
   padding: 0px; 
 }
-
 html{
   text-align: center;
   background-color: #a5a5a5;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-@font-face {
-  font-family: "Splat-title";
-  src: url("./SplatoonTitle.otf");
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face {
-  font-family: "Splat-text";
-  src: url("./SplatoonText.otf");
-  font-style: normal;
-  font-weight: normal;
-}
-
 .headerWrap{
-  margin-top: 30px;
-  /* border: #222 1px solid; */
-  /* background-color: #222; */
-  padding: 5px 0;
+  margin-top: 5px;
 }
-
 h1, h2{
   color: #222;
 }
-
+h1{
+  font-family: "Splat-text";
+  line-height: 150%;
+  text-shadow: 1px 3px 0px rgba(255 255 255/0.5);
+}
 h2{
-  font-size: 1.2rem;
+  font-size: 1rem;
+  /* font-family: 'Splat-text', "DFPT_AZ5"; */
 }
 
 .main{
@@ -42,23 +96,57 @@ h2{
   margin: 0px auto;
   /* border: #000 1px solid; */
 }
-
 .main > div {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
+.bannerNav{
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+.bannerNav > div{
+  display:inline-block;
+  vertical-align:middle;
+}
+.bannerSideBT{
+  height: 20px;
+  width: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.prev{
+  width: 0; 
+  height: 0; 
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-right: 30px solid #474747;
+}
+.prev:hover{
+  border-right: 30px solid white;
+}
+.next{
+  width: 0; 
+  height: 0; 
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 30px solid #474747;
+}
+.next:hover{
+  border-left: 30px solid white;
+}
 .bannerPreview{
   box-shadow: 8px 12px 1px rgba(0 0 0/0.15);
   position: relative;
+  cursor: pointer;
 }
-
 .bannerPreview, .bannerPreview img{
   width: 100%;
   max-width: 700px;
-  margin: 30px auto;
+  margin: 0 auto;
   display: block;
 }
-
 .bannerPreview > div{
   /* border: red 1px solid; */
   position: absolute;
@@ -82,9 +170,6 @@ h2{
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
   z-index: 999;
 }
 .bannerPreview .number{
@@ -94,10 +179,9 @@ h2{
   bottom: 5%;
   z-index: 1000;
   line-height: 100%;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
 }
+
+
 .searchBoxSection > div{
   color: white;
   background-color: #222;
@@ -107,15 +191,13 @@ h2{
   margin: 8px 3px;
   box-shadow: 5px 8px 1px rgba(0 0 0/0.2);
 }
-
 .searchBoxLabel{
-  font-size: 1.3rem;
+  font-size: 1rem;
   padding: 8px 0;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   font-weight: bold;
 }
-
 .searchBoxAdj{
   transform: rotate(-1.1deg);
 }
@@ -128,14 +210,10 @@ h2{
 .searchBoxSub .searchBoxLabel{
   background-color: rgb(58, 60, 167);
 }
-
-input{
+#comboBoxAdj, #comboBoxSub{
   width: 90%;
   box-sizing: border-box;
-}
-
-#comboBox_title1, #comboBox_title2{
-  font-size: 25px;
+  font-size: 1.3rem;
   padding: 10px;
   border-radius: 10px;
   margin: 20px auto;
@@ -148,29 +226,26 @@ input{
   background-color: #474747;
   border-radius: 10px;
 }
-
 .resultSection ul{
   list-style: none;
   display:inline-block;
   vertical-align:top;
   width:520px;
 }
-
-#result_title1{
+#resultAdj{
   text-align: right;
 }
-
-#result_title2{
+#resultSub{
   text-align: left;
 }
-
-
 .dataList li:hover{
-  background-color: #222;
+  background-color: #333;
+  cursor: pointer;
 }
-
-.lighttedItem{
-  border: 1px solid rgb(208, 226, 43);
+.selectedItem{
+  background-color: #222;
+  outline: 2px solid rgb(208, 226, 43);
+  border-radius: 5px;
 }
 
 .dataList li div{
@@ -181,42 +256,36 @@ input{
   padding: 2px 0;
   /* border: 1px solid salmon; */
 }
-
-#result_title1 li div:last-child, #result_title2 li div:first-child{
+.dataList li .id{
   font-size: 10px;
   padding: 3px;
   background-color: rgba(0 0 0/0.5);
   color: #777;
   line-height: 1.4rem;
 }
-#result_title1 li div:nth-child(3), #result_title2 li div:nth-child(2){
+.dataList li .en{
   line-height: 1.4rem;
   color:rgb(208, 226, 43)
 }
-#result_title1 li div:nth-child(2), #result_title2 li div:nth-child(3){
+.dataList li .jp{
   color:rgb(148, 142, 236)
 }
-#result_title1 li div:first-child, #result_title2 li div:last-child{
+.dataList li .ch{
   color:rgb(166, 187, 194)
 }
-
 
 .fade {
   opacity: 1;
 }
-
 ::selection {
   background: rgb(110 110 110);
 }
-
 ::-moz-selection {
   background: rgb(110 110 110);
 }
-
 .resultSection ::selection {
   background: rgba(105, 105, 105, 0.7);
 }
-
 .resultSection ::-moz-selection {
   background: rgba(105, 105, 105, 0.7);
 }
@@ -225,22 +294,18 @@ input{
 ::-webkit-scrollbar {
   width: 18px;
 }
-
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
-
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
   background-color: #222;
   border-radius: 20px;
   border: 6px solid transparent;
   background-clip: content-box;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background-color: #111;
 }
