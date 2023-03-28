@@ -1,3 +1,4 @@
+var lang = ["en", "jp", "ch"];
 
 function loadAdjectiveTitleResult(data){
     var titleCategory ="CommonMsg/Byname/BynameAdjective";
@@ -6,12 +7,12 @@ function loadAdjectiveTitleResult(data){
     for (const key of Object.keys(data[0][titleCategory])) {
         resulAdjtHtml += "<li class='fade'>";
         for (let i = data.length - 1; i >= 0; i--) {
-            resulAdjtHtml += "<div>"+cleanUp(data[i][titleCategory][key])+"</div>";
+            resulAdjtHtml += "<div class='"+ lang[i] + "'>"+cleanUp(data[i][titleCategory][key])+"</div>";
         }   
-        resulAdjtHtml += "<div>"+key+"</div>";
+        resulAdjtHtml += "<div class='id'>"+key+"</div>";
         resulAdjtHtml += "</li>";
-    }
-    $("#result_title1").html(resulAdjtHtml);
+      }
+    $("#resultAdj").html(resulAdjtHtml);
 }
 
 function loadSubjectTitleResult(data){
@@ -24,15 +25,15 @@ function loadSubjectTitleResult(data){
 
             if (data.some(hasContent)) {
                 resultSubHtml += "<li class='fade'>";
-                resultSubHtml += "<div>"+key+"</div>";
+                resultSubHtml += "<div class='id'>"+key+"</div>";
                 for (langData of data) {
                     var displayKey = isGarbage(langData[titleCategory][key]) ? key.slice(0, -1)+'0' : key;
-                        resultSubHtml += "<div>"+cleanUp(langData[titleCategory][displayKey])+"</div>";
+                        resultSubHtml += "<div class='"+ lang[data.indexOf[langData]] + "'>"+cleanUp(langData[titleCategory][displayKey])+"</div>";
                 }   
                 resultSubHtml += "</li>";    
             }
     }
-    $("#result_title2").html(resultSubHtml);
+    $("#resultSub").html(resultSubHtml);
 }
 
 function loadDataIntoResult(data){
@@ -57,26 +58,78 @@ function getData() {
     .then(data => loadDataIntoResult(data));
 }
 
+function setUpBannerTitleClickEvents(){
+    $('.bannerPreview .title span:first-child').html(selectedAdj[curLangIndex]+" ");
+    $('.bannerPreview .title span:last-child').html(selectedSub[curLangIndex]);
 
+    $('#resultAdj').on('click','li', function(event){
+        selectedAdj=[];
+        for (const lang of langList) {
+            selectedAdj.push($(this).find("."+lang).text());
+        }
+        var adjWithSpace = curLangIndex==0 ? selectedAdj[curLangIndex]+" " : selectedAdj[curLangIndex];
+        $('.bannerPreview .title span:first-child').html(adjWithSpace);
+        $(this).addClass("selectedItem");
+        $(this).siblings().removeClass("selectedItem");        
+    });
+
+    $('#resultSub').on('click','li', function(event){
+        selectedSub=[];
+        for (const lang of langList) {
+            selectedSub.push($(this).find("."+lang).text());
+        }
+        $('.bannerPreview .title span:last-child').html(selectedSub[curLangIndex]);
+        $(this).addClass("selectedItem");
+        $(this).siblings().removeClass("selectedItem");
+    });
+}
+
+function setUpBannerLangEvents(){
+    $('.next').click(function(event){
+        curLangIndex = curLangIndex < 2? curLangIndex+1 : 0;
+        swapTitleLang();
+    });
+
+    $('.prev').click(function(event){
+        curLangIndex = curLangIndex <= 0 ? 2 : curLangIndex-1;
+        swapTitleLang();
+    });
+}
+
+function swapTitleLang(){
+    var adj = curLangIndex==0? selectedAdj[curLangIndex]+" ":selectedAdj[curLangIndex]; 
+    $('.bannerPreview .title span:first-child').html(adj);
+    $('.bannerPreview .title span:last-child').html(selectedSub[curLangIndex]);
+    $('.bannerPreview .title').css("font-family","'Splat-text', '"+fontList[curLangIndex]+"'");    
+}
+
+var fontList = ["","Kurokane","DFPT_AZ5"]
+var selectedAdj = ["Splatlandian","バンカラな","蠻頹的"]
+var selectedSub = ["Youth","若者","年輕人"]
+var langList = ['en','jp','ch'];
+var curLangIndex = 0;
 
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
 $(document).ready(function () {
 
     getData();
-    $('#comboBox_title1').bind('keydown keypress keyup change', function() {
+    setUpBannerTitleClickEvents();
+    setUpBannerLangEvents();
+
+    $('#comboBoxAdj').bind('keydown keypress keyup change', function() {
         var search = this.value.toLowerCase();
-        var $li = $("#result_title1 li").hide();
+        var $li = $("#resultAdj li").hide();
         $li.filter(function() {
             return $(this).text().toLowerCase().indexOf(search) >= 0;
         }).show();
     });
 
-    $('#comboBox_title2').bind('keydown keypress keyup change', function() {
+    $('#comboBoxSub').bind('keydown keypress keyup change', function() {
         var search = this.value.toLowerCase();
-        var $li = $("#result_title2 li").hide();
+        var $li = $("#resultSub li").hide();
         $li.filter(function() {
             return $(this).text().toLowerCase().indexOf(search) >= 0;
         }).show();
     });
-
+    
 });
