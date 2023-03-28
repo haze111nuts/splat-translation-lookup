@@ -1,37 +1,37 @@
 
 function loadAdjectiveTitleResult(data){
-    var titleAdjDatObjectEN = data[0]["CommonMsg/Byname/BynameAdjective"];
-    var titleAdjDatObjectJP = data[1]["CommonMsg/Byname/BynameAdjective"];
-    var titleAdjDatObjectCH = data[2]["CommonMsg/Byname/BynameAdjective"];
-
+    var titleCategory ="CommonMsg/Byname/BynameAdjective";
     var resulAdjtHtml = "";
-    for (const [key, value] of Object.entries(titleAdjDatObjectEN)) {
+
+    for (const key of Object.keys(data[0][titleCategory])) {
         resulAdjtHtml += "<li>";
-        resulAdjtHtml += "<div>"+titleAdjDatObjectCH[key]+"</div>";
-        resulAdjtHtml += "<div>"+getRidOfRuby(titleAdjDatObjectJP[key])+"</div>";
-        resulAdjtHtml += "<div>"+value+"</div>";
+        for (let i = data.length - 1; i >= 0; i--) {
+            resulAdjtHtml += "<div>"+cleanUp(data[i][titleCategory][key])+"</div>";
+        }   
         resulAdjtHtml += "<div>"+key+"</div>";
         resulAdjtHtml += "</li>";
-      }
+    }
     $("#result_title1").html(resulAdjtHtml);
 }
 
 function loadSubjectTitleResult(data){
-    var titleSubDatObjectEN = data[0]["CommonMsg/Byname/BynameSubject"];
-    var titleSubDatObjectJP = data[1]["CommonMsg/Byname/BynameSubject"];
-    var titleSubDatObjectCH = data[2]["CommonMsg/Byname/BynameSubject"];
-
+    var titleCategory ="CommonMsg/Byname/BynameSubject";
+    var isGarbage = (content) => content.toString().indexOf("[group") !== -1;
     var resultSubHtml = "";
-    for (const [key, value] of Object.entries(titleSubDatObjectEN)) {
-        if(value.indexOf("[group") === -1){
-            resultSubHtml += "<li>";
-            resultSubHtml += "<div>"+key+"</div>";
-            resultSubHtml += "<div>"+value+"</div>";
-            resultSubHtml += "<div>"+getRidOfRuby(titleSubDatObjectJP[key])+"</div>";
-            resultSubHtml += "<div>"+titleSubDatObjectCH[key]+"</div>";
-            resultSubHtml += "</li>";
-        }
-      }
+
+    for (const key of Object.keys(data[0][titleCategory])) {
+        var hasContent = (langData) => !isGarbage(langData[titleCategory][key]);
+
+            if (data.some(hasContent)) {
+                resultSubHtml += "<li>";
+                resultSubHtml += "<div>"+key+"</div>";
+                for (langData of data) {
+                    var displayKey = isGarbage(langData[titleCategory][key]) ? key.slice(0, -1)+'0' : key;
+                        resultSubHtml += "<div>"+cleanUp(langData[titleCategory][displayKey])+"</div>";
+                }   
+                resultSubHtml += "</li>";    
+            }
+    }
     $("#result_title2").html(resultSubHtml);
 }
 
@@ -40,7 +40,7 @@ function loadDataIntoResult(data){
     loadSubjectTitleResult(data);
 }
 
-function getRidOfRuby(text){
+function cleanUp(text){
     return text.replace(/\s*\[.*?\]\s*/g, '');
 }
 
