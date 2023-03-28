@@ -7,7 +7,7 @@ function loadAdjectiveTitleResult(data){
     for (const key of Object.keys(data[0][titleCategory])) {
         resulAdjtHtml += "<li class='fade'>";
         for (let i = data.length - 1; i >= 0; i--) {
-            resulAdjtHtml += "<div class='"+ langs[i] + "'>"+cleanUp(data[i][titleCategory][key])+"</div>";
+            resulAdjtHtml += "<div class='"+ langs[i] + "'>"+cleanUpData(data[i][titleCategory][key])+"</div>";
         }   
         resulAdjtHtml += "<div class='id'>"+key+"</div>";
         resulAdjtHtml += "</li>";
@@ -28,7 +28,7 @@ function loadSubjectTitleResult(data){
                 resultSubHtml += "<div class='id'>"+key+"</div>";
                 for (langData of data) {
                     var displayKey = isGarbage(langData[titleCategory][key]) ? key.slice(0, -1)+'0' : key;
-                        resultSubHtml += "<div class='"+ langs[data.indexOf(langData)] + "'>"+cleanUp(langData[titleCategory][displayKey])+"</div>";
+                        resultSubHtml += "<div class='"+ langs[data.indexOf(langData)] + "'>"+cleanUpData(langData[titleCategory][displayKey])+"</div>";
                 }   
                 resultSubHtml += "</li>";    
             }
@@ -41,7 +41,7 @@ function loadDataIntoResult(data){
     loadSubjectTitleResult(data);
 }
 
-function cleanUp(text){
+function cleanUpData(text){
     return text.replace(/\s*\[.*?\]\s*/g, '');
 }
 
