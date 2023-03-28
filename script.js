@@ -4,7 +4,7 @@ function loadAdjectiveTitleResult(data){
     var resulAdjtHtml = "";
 
     for (const key of Object.keys(data[0][titleCategory])) {
-        resulAdjtHtml += "<li>";
+        resulAdjtHtml += "<li class='fade'>";
         for (let i = data.length - 1; i >= 0; i--) {
             resulAdjtHtml += "<div>"+cleanUp(data[i][titleCategory][key])+"</div>";
         }   
@@ -23,7 +23,7 @@ function loadSubjectTitleResult(data){
         var hasContent = (langData) => !isGarbage(langData[titleCategory][key]);
 
             if (data.some(hasContent)) {
-                resultSubHtml += "<li>";
+                resultSubHtml += "<li class='fade'>";
                 resultSubHtml += "<div>"+key+"</div>";
                 for (langData of data) {
                     var displayKey = isGarbage(langData[titleCategory][key]) ? key.slice(0, -1)+'0' : key;
@@ -57,6 +57,8 @@ function getData() {
     .then(data => loadDataIntoResult(data));
 }
 
+
+
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
 $(document).ready(function () {
 
@@ -76,4 +78,5 @@ $(document).ready(function () {
             return $(this).text().toLowerCase().indexOf(search) >= 0;
         }).show();
     });
+
 });
