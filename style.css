@@ -25,22 +25,21 @@ html{
 .headerWrap{
   margin-top: 30px;
   /* border: #222 1px solid; */
-  background-color: #777;
-  padding: 10px 0;
+  /* background-color: #222; */
+  padding: 5px 0;
 }
 
 h1, h2{
-  color: #fff;
+  color: #222;
 }
 
 h2{
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .main{
   width: 1140px;
   margin: 0px auto;
-  padding: 20px 0px;
   /* border: #000 1px solid; */
 }
 
@@ -83,6 +82,9 @@ h2{
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
   z-index: 999;
 }
 .bannerPreview .number{
@@ -92,6 +94,9 @@ h2{
   bottom: 5%;
   z-index: 1000;
   line-height: 100%;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 .searchBoxSection > div{
   color: white;
