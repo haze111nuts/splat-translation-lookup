@@ -263,14 +263,14 @@ h2{
   color: #777;
   line-height: 1.4rem;
 }
-.dataList li .en{
+.dataList li .USen{
   line-height: 1.4rem;
   color:rgb(208, 226, 43)
 }
-.dataList li .jp{
+.dataList li .JPja{
   color:rgb(148, 142, 236)
 }
-.dataList li .ch{
+.dataList li .TWzh{
   color:rgb(166, 187, 194)
 }
 

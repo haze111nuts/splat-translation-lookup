@@ -1,4 +1,4 @@
-var lang = ["en", "jp", "ch"];
+var langs = ["USen","JPja","TWzh"];
 
 function loadAdjectiveTitleResult(data){
     var titleCategory ="CommonMsg/Byname/BynameAdjective";
@@ -7,7 +7,7 @@ function loadAdjectiveTitleResult(data){
     for (const key of Object.keys(data[0][titleCategory])) {
         resulAdjtHtml += "<li class='fade'>";
         for (let i = data.length - 1; i >= 0; i--) {
-            resulAdjtHtml += "<div class='"+ lang[i] + "'>"+cleanUp(data[i][titleCategory][key])+"</div>";
+            resulAdjtHtml += "<div class='"+ langs[i] + "'>"+cleanUp(data[i][titleCategory][key])+"</div>";
         }   
         resulAdjtHtml += "<div class='id'>"+key+"</div>";
         resulAdjtHtml += "</li>";
@@ -28,7 +28,7 @@ function loadSubjectTitleResult(data){
                 resultSubHtml += "<div class='id'>"+key+"</div>";
                 for (langData of data) {
                     var displayKey = isGarbage(langData[titleCategory][key]) ? key.slice(0, -1)+'0' : key;
-                        resultSubHtml += "<div class='"+ lang[data.indexOf[langData]] + "'>"+cleanUp(langData[titleCategory][displayKey])+"</div>";
+                        resultSubHtml += "<div class='"+ langs[data.indexOf(langData)] + "'>"+cleanUp(langData[titleCategory][displayKey])+"</div>";
                 }   
                 resultSubHtml += "</li>";    
             }
@@ -47,7 +47,6 @@ function cleanUp(text){
 
 function getData() {
     var source = "https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/data/language/";
-    var langs = ["USen","JPja","TWzh"]    
     var promises = [];
 
     for (lang of langs){
@@ -64,7 +63,7 @@ function setUpBannerTitleClickEvents(){
 
     $('#resultAdj').on('click','li', function(event){
         selectedAdj=[];
-        for (const lang of langList) {
+        for (const lang of langs) {
             selectedAdj.push($(this).find("."+lang).text());
         }
         var adjWithSpace = curLangIndex==0 ? selectedAdj[curLangIndex]+" " : selectedAdj[curLangIndex];
@@ -75,7 +74,7 @@ function setUpBannerTitleClickEvents(){
 
     $('#resultSub').on('click','li', function(event){
         selectedSub=[];
-        for (const lang of langList) {
+        for (const lang of langs) {
             selectedSub.push($(this).find("."+lang).text());
         }
         $('.bannerPreview .title span:last-child').html(selectedSub[curLangIndex]);
@@ -106,7 +105,6 @@ function swapTitleLang(){
 var fontList = ["","Kurokane","DFPT_AZ5"]
 var selectedAdj = ["Splatlandian","バンカラな","蠻頹的"]
 var selectedSub = ["Youth","若者","年輕人"]
-var langList = ['en','jp','ch'];
 var curLangIndex = 0;
 
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
