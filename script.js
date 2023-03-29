@@ -137,12 +137,46 @@ function filterSearch(e) {
     }).show();
 };
 
+function modalInit() {
+    var overlay = document.querySelector(".md-overlay");
+    var modal = document.querySelectorAll("[id^='modal']");
+    modal.forEach(function (el) {
+        var close = el.querySelector(".md-close");
+        function removeModalHandler() {
+            classie.remove(el, "md-show");
+        }
+        setTimeout(function () {
+            overlay.addEventListener("click", removeModalHandler);
+        }, 1);
+        close.addEventListener("click", function (ev) {
+            ev.stopPropagation();
+            removeModalHandler();
+        });
+    });
+
+    [].slice.call(document.querySelectorAll(".md-trigger")).forEach(function (el, i) {
+        var currentModal = document.querySelector("#" + el.getAttribute("data-modal"));
+
+        el.addEventListener("click", function (ev) {
+            setTimeout(function () {
+                classie.add(currentModal, "md-show");
+            }, 1);
+            if (classie.has(el, "md-setperspective")) {
+                setTimeout(function () {
+                    classie.add(document.documentElement, "md-perspective");
+                }, 25);
+            }
+        });
+    });
+}
+
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
 $(document).ready(function () {
 
     getData();
     setUpBannerTitleClickEvents();
     setUpBannerLangEvents();
+    modalInit();
 
     $('#comboBoxAdj').on('keydown keypress keyup change', {selector: "#resultAdj li"}, filterSearch);
     $('#comboBoxSub').on('keydown keypress keyup change', {selector: "#resultSub li"}, filterSearch);    
