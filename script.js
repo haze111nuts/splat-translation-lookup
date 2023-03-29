@@ -39,7 +39,10 @@ function loadSubjectTitleResult(data){
 function loadDataIntoResult(data){
     loadAdjectiveTitleResult(data);
     loadSubjectTitleResult(data);
-    $('div:contains("3000"):not(:has(*))').parent().addClass("selectedItem");
+}
+
+function initState(){
+    $('div:contains("3000"):not(:has(*))').parent().trigger("click");
     $('input[id^="comboBox"]').trigger("change");
 }
 
@@ -56,7 +59,10 @@ function getData() {
     }
 
     Promise.all(promises)
-    .then(data => loadDataIntoResult(data));
+    .then(data => {
+            loadDataIntoResult(data);
+            initState();
+        });
 }
 
 function setUpBannerTitleClickEvents(){
@@ -123,12 +129,13 @@ function swapTitleLang(){
     $('.bannerPreview .title').css("font-family","'Splat-text', '"+fontList[curLangIndex]+"'");    
 }
 
-var fontList = ["","Kurokane","DFPT_AZ5"]
-var selectedAdj = ["Splatlandian","バンカラな","蠻頹的"]
-var selectedSub = ["Youth","若者","年輕人"]
+var fontList = ["","Kurokane","DFPT_AZ5"];
+var selectedAdj = ["","",""];
+var selectedSub = ["","",""];
 var defaultTitleSize = "2.3rem";
 var curLangIndex = 0;
 
+// search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
 function filterSearch(e) {
     var search = this.value.toLowerCase();
     var $li = $(e.data.selector).hide();
@@ -137,7 +144,6 @@ function filterSearch(e) {
     }).show();
 };
 
-// search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
 $(document).ready(function () {
 
     getData();
