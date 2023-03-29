@@ -13,18 +13,27 @@
 
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script type="text/javascript" src="script.js" ></script>
+  <script type="text/javascript" src="classie.js" ></script>
   </head>
   <body>
+
+		<div class="md-modal">
+			<div class="md-content">
+        XXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXX<br>
+			</div>
+		</div>
     <div class="main">
       <div class="headerWrap">
         <h1>Splatoon3 EN/JP/CH Title Look-up</h1>
         <h2>斯普拉遁3 英日中稱號對照機</h2>
       </div>
-
       <div class="bannerNav">
         <div class="bannerSideBT prev"></div>
-        <div class="bannerPreview">
-          <img src="Npl_Tutorial00.png">
+        <div class="bannerPreview md-trigger" data-modal="modal-blur">
+          <img src="assets/banners/Npl_Tutorial00.png">
           <div class="title"><span></span><span></span></div>
           <div class="name">Player</div>
           <div class="number">#0001</div>
@@ -47,7 +56,7 @@
           <ul id="resultAdj" class="dataList"></ul>
           <ul id="resultSub" class="dataList"></ul>
       </div>
-
     </div>
+
 	</body>
 </html>
