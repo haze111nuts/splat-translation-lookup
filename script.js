@@ -1,4 +1,5 @@
 var langs = ["USen","JPja","TWzh"];
+const source = "https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/";
 
 function loadAdjectiveTitleResult(data){
     var titleCategory ="CommonMsg/Byname/BynameAdjective";
@@ -51,11 +52,11 @@ function cleanUpData(text){
 }
 
 function getData() {
-    var source = "https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/data/language/";
+    var textSource = source + "data/language/";
     var promises = [];
 
     for (lang of langs){
-        promises.push($.getJSON(source+lang+".json"));
+        promises.push($.getJSON(textSource+lang+".json"));
     }
 
     Promise.all(promises)
@@ -63,6 +64,27 @@ function getData() {
             loadDataIntoResult(data);
             initState();
         });
+}
+
+function getBannerImage() {
+    var versionSource = source + "versions.json";
+    var imgSource = (id) => source + "images/npl/" + id + ".webp"; // or png
+
+    $.getJSON(versionSource)
+    .then(versionData => {
+        var latestVersion = versionData[versionData.length-1];
+
+        var bannerIdSource = source + "data/mush/" + latestVersion +"/NamePlateBgInfo.json";
+
+        return $.getJSON(bannerIdSource);
+    })
+    .then(bannerData => {
+        var bannerImg = bannerData
+        .map((bannerInfo) => imgSource(bannerInfo.__RowId));
+
+        // console.log(bannerImg);
+        // Insert function that adds image to html here
+    });
 }
 
 function setUpBannerTitleClickEvents(){
@@ -147,6 +169,7 @@ function filterSearch(e) {
 $(document).ready(function () {
 
     getData();
+    getBannerImage();
     setUpBannerTitleClickEvents();
     setUpBannerLangEvents();
 
