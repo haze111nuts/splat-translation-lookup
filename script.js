@@ -82,7 +82,7 @@ function getBannerImage() {
         var bannerImg = bannerData
         .map((bannerInfo) => imgSource(bannerInfo.__RowId));
 
-        // console.log(bannerImg);
+        console.log(bannerImg);
         // Insert function that adds image to html here
     });
 }
