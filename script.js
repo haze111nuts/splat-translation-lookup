@@ -39,6 +39,8 @@ function loadSubjectTitleResult(data){
 function loadDataIntoResult(data){
     loadAdjectiveTitleResult(data);
     loadSubjectTitleResult(data);
+    $('div:contains("3000"):not(:has(*))').parent().addClass("selectedItem");
+    $('input[id^="comboBox"]').trigger("change");
 }
 
 function cleanUpData(text){
@@ -107,6 +109,14 @@ var selectedAdj = ["Splatlandian","バンカラな","蠻頹的"]
 var selectedSub = ["Youth","若者","年輕人"]
 var curLangIndex = 0;
 
+function filterSearch(e) {
+    var search = this.value.toLowerCase();
+    var $li = $(e.data.selector).hide();
+    $li.filter(function() {
+        return $(this).text().toLowerCase().indexOf(search) >= 0;
+    }).show();
+};
+
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
 $(document).ready(function () {
 
@@ -114,20 +124,6 @@ $(document).ready(function () {
     setUpBannerTitleClickEvents();
     setUpBannerLangEvents();
 
-    $('#comboBoxAdj').bind('keydown keypress keyup change', function() {
-        var search = this.value.toLowerCase();
-        var $li = $("#resultAdj li").hide();
-        $li.filter(function() {
-            return $(this).text().toLowerCase().indexOf(search) >= 0;
-        }).show();
-    });
-
-    $('#comboBoxSub').bind('keydown keypress keyup change', function() {
-        var search = this.value.toLowerCase();
-        var $li = $("#resultSub li").hide();
-        $li.filter(function() {
-            return $(this).text().toLowerCase().indexOf(search) >= 0;
-        }).show();
-    });
-    
+    $('#comboBoxAdj').on('keydown keypress keyup change', {selector: "#resultAdj li"}, filterSearch);
+    $('#comboBoxSub').on('keydown keypress keyup change', {selector: "#resultSub li"}, filterSearch);    
 });
