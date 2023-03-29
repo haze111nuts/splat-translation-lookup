@@ -169,7 +169,7 @@ function filterSearch(e) {
 $(document).ready(function () {
 
     getData();
-    getBannerImage();
+    // getBannerImage();
     setUpBannerTitleClickEvents();
     setUpBannerLangEvents();
 
