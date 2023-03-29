@@ -162,9 +162,6 @@ h2{
   z-index: 1000;
   line-height: 100%;
   transform: skewX(-5deg);
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
 }
 .bannerPreview .name{
   font-family: "Splat-title";
