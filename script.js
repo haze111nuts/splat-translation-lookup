@@ -71,7 +71,9 @@ function setUpBannerTitleClickEvents(){
         var adjWithSpace = curLangIndex==0 ? selectedAdj[curLangIndex]+" " : selectedAdj[curLangIndex];
         $('.bannerPreview .title span:first-child').html(adjWithSpace);
         $(this).addClass("selectedItem");
-        $(this).siblings().removeClass("selectedItem");        
+        $(this).siblings().removeClass("selectedItem");
+
+        adjustLongTitle();
     });
 
     $('#resultSub').on('click','li', function(event){
@@ -82,6 +84,8 @@ function setUpBannerTitleClickEvents(){
         $('.bannerPreview .title span:last-child').html(selectedSub[curLangIndex]);
         $(this).addClass("selectedItem");
         $(this).siblings().removeClass("selectedItem");
+
+        adjustLongTitle();
     });
 }
 
@@ -89,12 +93,27 @@ function setUpBannerLangEvents(){
     $('.next').click(function(event){
         curLangIndex = curLangIndex < 2? curLangIndex+1 : 0;
         swapTitleLang();
+        adjustLongTitle();
     });
 
     $('.prev').click(function(event){
         curLangIndex = curLangIndex <= 0 ? 2 : curLangIndex-1;
         swapTitleLang();
+        adjustLongTitle();
     });
+}
+
+function adjustLongTitle(){
+    var size;
+    var desired_height = 36.8;
+    var resizer = $(".title");
+    resizer.css("font-size", defaultTitleSize);
+    resizer.css("word-spacing", "normal");
+    while(resizer.height() > desired_height){
+        size = parseInt(resizer.css("font-size"), 10);
+        resizer.css("font-size", size - 1);
+        resizer.css("word-spacing", -4);
+    }
 }
 
 function swapTitleLang(){
@@ -107,6 +126,7 @@ function swapTitleLang(){
 var fontList = ["","Kurokane","DFPT_AZ5"]
 var selectedAdj = ["Splatlandian","バンカラな","蠻頹的"]
 var selectedSub = ["Youth","若者","年輕人"]
+var defaultTitleSize = "2.3rem";
 var curLangIndex = 0;
 
 function filterSearch(e) {
