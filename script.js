@@ -182,7 +182,6 @@ function setupBannerNameChange(){
         event = event || window.event;
         span = event.target;
 
-
         if (span && span.tagName.toUpperCase() === "SPAN") {
             span.style.display = "none";
             text = span.innerHTML;
@@ -209,11 +208,15 @@ function setupBannerNameChange(){
             if ($(".name input").val().length >= max_chars) {
                 $(this).val($(this).val().substr(0, max_chars));
             }
-
+            $(".name input").keypress(function(e) {
+                if(e.which == 13) {
+                    input.blur();
+                }
+            });
             input.focus();
             input.onblur = function() {
                 span.parentNode.removeChild(input);
-                span.innerHTML = input.value == "" ? "&nbsp;" : input.value;
+                span.innerHTML = input.value == "" ? "--" : input.value;
                 span.style.display = "";
             };
 
