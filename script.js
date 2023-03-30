@@ -199,7 +199,6 @@ function setupBannerNameChange(){
                     $(this).val($(this).val().substr(0, max_chars));
                     $(this).addClass("error");
                 }
-                console.log(playerNameCheck($(this).val()));
             });
             $('.name input').keyup( function(e){
                 if ($(this).val().length >= max_chars) { 
@@ -217,6 +216,7 @@ function setupBannerNameChange(){
                 span.innerHTML = input.value == "" ? "&nbsp;" : input.value;
                 span.style.display = "";
             };
+
         }
     };    
 }
