@@ -2,20 +2,22 @@
 
 <html>
   <head>
-  <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-      <title>Splatoon3 EN/JP/CH Title Look-up</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-      <meta name="description" content="" />
-  
-  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <title>Splatoon3 EN/JP/CH Title Look-up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="" />
 
-  <link rel="stylesheet" type="text/css" href="style.css" />
-  <script type="text/javascript" src="script.js" ></script>
-  <script type="text/javascript" src="classie.js" ></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="script.js" ></script>
+    <script type="text/javascript" src="classie.js" ></script>
   </head>
+
   <body>
+    <!--Modal For Choosing Banner-->
 		<div class="md-modal">
       <div class="bannerPopUpLabel">
         <div class="closeBT">X</div>
@@ -25,20 +27,25 @@
         <div class="bannerList"></div>
 			</div>
 		</div>
+    <!--Main Section-->
     <div class="main">
       <div class="headerWrap">
         <h1>Splatoon3 EN/JP/CH Title Look-up</h1>
         <h2>斯普拉遁3 英日中稱號對照機</h2>
       </div>
       <div class="bannerNav">
-        <div class="bannerSideBT prev"></div>
+        <div class="bannerSideBT prev md-trigger"></div>
         <div class="bannerPreview">
-          <img class='md-trigger' src="assets/banners/Npl_Tutorial00.png">
+          <img src="assets/banners/Npl_Tutorial00.png">
           <div class="title"><span></span><span></span></div>
-          <div class="name" id="editable" ><span>Player</span></div>
+          <div class="name">
+            <div id="editable">
+              <span>Player</span>
+            </div>
+          </div>
           <div class="number">#0001</div>
         </div>
-        <div class="bannerSideBT next"></div>
+        <div class="bannerSideBT next md-trigger"></div>
       </div>
       
       <div class="searchBoxSection">
@@ -58,5 +65,13 @@
       </div>
     </div>
 
+    <!--Credit Panel-->
+    <div class="creditPanel">
+      <ul>
+        <!-- <li>Creator: Hazy</li>
+        <li>Assist: 58</li>
+        <li>Source: Leanny</li> -->
+      </ul>
+    </div>
 	</body>
 </html>
