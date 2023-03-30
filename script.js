@@ -103,13 +103,10 @@ function getBannerImage() {
 }
 
 var modalTop = "50%"
-var modalTop = "50%"
 function setUpModalOpenEvent(){
     $('.md-trigger').click(function(event){
         $(".md-modal").css("top", modalTop);
-        $(".md-modal").css("top", modalTop);
         $(".md-modal").css("opacity", 1);
-        $(document.body).addClass("noscroll");
         $(document.body).addClass("noscroll");
         setUpBannerClickEvent();
     });
@@ -120,15 +117,7 @@ function modalClose(){
     $(".md-modal").css("top","-"+modalTop);
     $(".md-modal").css("opacity", 0);
     $(document.body).removeClass("noscroll");    
-    $(".closeBT").click(modalClose);
 }
-
-function modalClose(){
-    $(".md-modal").css("top","-"+modalTop);
-    $(".md-modal").css("opacity", 0);
-    $(document.body).removeClass("noscroll");    
-}
-
 
 
 function setUpBannerClickEvent(){
