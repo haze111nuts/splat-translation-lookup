@@ -82,9 +82,6 @@ function getBannerImage() {
         return $.getJSON(bannerIdSource);
     })
     .then(bannerData => {
-        // var bannerImg = bannerData
-        // .map((bannerInfo) => imgSource(bannerInfo.__RowId));
-
         var bannerAsset = bannerData
         .map((bannerInfo) => {
             return {
@@ -94,10 +91,6 @@ function getBannerImage() {
         });
 
         var bannerHtml = "";
-        // for (const img of bannerImg) {
-        //     bannerHtml += "<img src='"+img+"'>";
-        // }
-
         for (const img of bannerAsset) {
             var colorAttr = 
             "r='" + img.textColor.R + 
@@ -109,17 +102,23 @@ function getBannerImage() {
     });
 }
 
+var modalTop = "50%"
 function setUpModalOpenEvent(){
     $('.md-trigger').click(function(event){
-        $(".md-modal").css("top","50%");
+        $(".md-modal").css("top", modalTop);
         $(".md-modal").css("opacity", 1);
+        $(document.body).addClass("noscroll");
         setUpBannerClickEvent();
     });
-    $(".closeBT").click(function(event){
-        $(".md-modal").css("top","-50%");
-        $(".md-modal").css("opacity", 0);
-    });
+    $(".closeBT").click(modalClose);
 }
+
+function modalClose(){
+    $(".md-modal").css("top","-"+modalTop);
+    $(".md-modal").css("opacity", 0);
+    $(document.body).removeClass("noscroll");    
+}
+
 
 function setUpBannerClickEvent(){
     $(".bannerList img").click(function(event){
@@ -131,11 +130,7 @@ function setUpBannerClickEvent(){
         " " + +$(this).attr('g')*255 +
         " " +  +$(this).attr('b')*255 +
         ")");
-
-        setTimeout(function() {
-                $(".md-modal").css("top","-50%");
-                $(".md-modal").css("opacity", 0);
-        }, 200);
+        setTimeout(modalClose, 200);
     });
 }
 
