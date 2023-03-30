@@ -82,11 +82,21 @@ function getBannerImage() {
         return $.getJSON(bannerIdSource);
     })
     .then(bannerData => {
-        var bannerImg = bannerData
-        .map((bannerInfo) => imgSource(bannerInfo.__RowId));
+        var bannerAsset = bannerData
+        .map((bannerInfo) => {
+            return {
+            source: imgSource(bannerInfo.__RowId),
+            textColor: bannerInfo.TextColor
+        }
+        });
+
         var bannerHtml = "";
-        for (const img of bannerImg) {
-            bannerHtml += "<img src='"+img+"'>";
+        for (const img of bannerAsset) {
+            var colorAttr = 
+            "r='" + img.textColor.R + 
+            "' g='" + img.textColor.G + 
+            "' b='" + img.textColor.B + "'";
+            bannerHtml += "<img src='"+img.source+"' "+ colorAttr +">";
         }
         $(".bannerList").html(bannerHtml);
     });
@@ -115,6 +125,11 @@ function setUpBannerClickEvent(){
         $(this).addClass("selectedBanner");
         $(this).siblings().removeClass("selectedBanner");
         $(".bannerPreview").children("img").attr("src", $(this).attr('src'));
+        $(".bannerPreview").children("div").css("color", 
+        "rgb("+ +$(this).attr('r')*255 +
+        " " + +$(this).attr('g')*255 +
+        " " +  +$(this).attr('b')*255 +
+        ")");
         setTimeout(modalClose, 200);
     });
 }
