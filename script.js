@@ -5,6 +5,7 @@ var selectedSub = ["","",""];
 var defaultTitleSize = "2.3rem";
 var curLangIndex = 0;
 
+const source = "https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/";
 
 function loadAdjectiveTitleResult(data){
     var titleCategory ="CommonMsg/Byname/BynameAdjective";
@@ -57,11 +58,11 @@ function cleanUpData(text){
 }
 
 function getData() {
-    var source = "https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/data/language/";
+    var textSource = source + "data/language/";
     var promises = [];
 
     for (lang of langs){
-        promises.push($.getJSON(source+lang+".json"));
+        promises.push($.getJSON(textSource+lang+".json"));
     }
 
     Promise.all(promises)
@@ -69,6 +70,50 @@ function getData() {
             loadDataIntoResult(data);
             initState();
         });
+}
+
+function getBannerImage() {
+    var versionSource = source + "versions.json";
+    var imgSource = (id) => source + "images/npl/" + id + ".webp"; // or png
+    $.getJSON(versionSource)
+    .then(versionData => {
+        var latestVersion = versionData[versionData.length-1];
+        var bannerIdSource = source + "data/mush/" + latestVersion +"/NamePlateBgInfo.json";
+        return $.getJSON(bannerIdSource);
+    })
+    .then(bannerData => {
+        var bannerImg = bannerData
+        .map((bannerInfo) => imgSource(bannerInfo.__RowId));
+        var bannerHtml = "";
+        for (const img of bannerImg) {
+            bannerHtml += "<img src='"+img+"'>";
+        }
+        $(".bannerList").html(bannerHtml);
+    });
+}
+
+function setUpModalOpenEvent(){
+    $('.md-trigger').click(function(event){
+        $(".md-modal").css("top","50%");
+        $(".md-modal").css("opacity", 1);
+        setUpBannerClickEvent();
+    });
+    $(".closeBT").click(function(event){
+        $(".md-modal").css("top","-50%");
+        $(".md-modal").css("opacity", 0);
+    });
+}
+
+function setUpBannerClickEvent(){
+    $(".bannerList img").click(function(event){
+        $(this).addClass("selectedBanner");
+        $(this).siblings().removeClass("selectedBanner");
+        $(".bannerPreview").children("img").attr("src", $(this).attr('src'));
+        setTimeout(function() {
+                $(".md-modal").css("top","-50%");
+                $(".md-modal").css("opacity", 0);
+        }, 200);
+    });
 }
 
 function setUpBannerTitleClickEvents(){
@@ -115,6 +160,48 @@ function setUpBannerLangEvents(){
     });
 }
 
+function setupBannerNameChange(){
+    document.getElementById('editable').onclick = function(event) {
+        var span, input, text;
+
+        // Get the event (handle MS difference)
+        event = event || window.event;
+
+        // Get the root element of the event (handle MS difference)
+        span = event.target;
+
+        // If it's a span...
+        if (span && span.tagName.toUpperCase() === "SPAN") {
+            // Hide it
+            span.style.display = "none";
+
+            // Get its text
+            text = span.innerHTML;
+
+            // Create an input
+            input = document.createElement("input");
+            input.type = "text";
+            input.value = text;
+            input.size = Math.max(text.length / 4 * 3, 4);
+            input.maxlength = "20";            
+            span.parentNode.insertBefore(input, span);
+
+            // Focus it, hook blur to undo
+            input.focus();
+            input.onblur = function() {
+                // Remove the input
+                span.parentNode.removeChild(input);
+
+                // Update the span
+                span.innerHTML = input.value == "" ? "&nbsp;" : input.value;
+
+                // Show the span again
+                span.style.display = "";
+            };
+        }
+    };    
+}
+
 function adjustLongTitle(){
     var size;
     var desired_height = 36.8;
@@ -147,8 +234,11 @@ function filterSearch(e) {
 
 $(document).ready(function () {
     getData();
+    getBannerImage();
     setUpBannerTitleClickEvents();
     setUpBannerLangEvents();
+    setUpModalOpenEvent();
+    setupBannerNameChange();
 
     $('#comboBoxAdj').on('keydown keypress keyup change', {selector: "#resultAdj li"}, filterSearch);
     $('#comboBoxSub').on('keydown keypress keyup change', {selector: "#resultSub li"}, filterSearch);    
