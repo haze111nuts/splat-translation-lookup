@@ -296,10 +296,12 @@ h2{
 }
 .searchBoxLabel{
   font-size: 1rem;
-  padding: 8px 0;
+  padding: 4px 0;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   font-weight: bold;
+  font-family: "Kurokane", "DFPT_AZ5";
+  text-transform: uppercase;
 }
 .searchBoxAdj{
   transform: rotate(-1.1deg);
