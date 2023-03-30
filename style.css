@@ -79,6 +79,11 @@ body{
   display:flex; 
   flex-direction:column; 
 }
+ul {
+  list-style: none;
+}
+
+
 .headerWrap{
   width: 80%;
   margin: 0 auto;
@@ -376,8 +381,23 @@ h2{
   background: #222;
   color: #aaa;
 }
-ul {
-  list-style: none;
+
+.creditPanel ul > li, .creditPanel li img, .creditPanel li div:last-child{
+  display:inline-block;
+  vertical-align:middle;
+}
+.creditPanel li div:last-child span{
+  font-weight: bold;
+}
+.creditPanel ul > li{
+  margin: 0 20px;
+}
+.creditPanel img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: #777;
+  margin-right: 3px;
 }
 
 .fade {
@@ -437,18 +457,15 @@ ul {
   -moz-transition: all 0.3s;
   transition: all 0.3s;
 }
-
 .md-content {
 	position: relative;
 	margin: 0 auto;
 }
-
 .blur{
   -webkit-filter: blur(3px);
 	-moz-filter: blur(3px);
 	filter: blur(3px);
 }
-
 .noscroll {
   overflow: hidden;
 }
