@@ -43,14 +43,9 @@ function loadSubjectTitleResult(data){
     $("#resultSub").html(resultSubHtml);
 }
 
-function loadDataIntoResult(data){
+function loadData(data){
     loadAdjectiveTitleResult(data);
     loadSubjectTitleResult(data);
-}
-
-function initState(){
-    $('div:contains("3000"):not(:has(*))').parent().trigger("click");
-    $('input[id^="comboBox"]').trigger("change");
 }
 
 function cleanUpData(text){
@@ -67,8 +62,8 @@ function getData() {
 
     Promise.all(promises)
     .then(data => {
-            loadDataIntoResult(data);
-            initState();
+            loadData(data);
+            selectionInit();
         });
 }
 
@@ -89,13 +84,23 @@ function getBannerImage() {
             textColor: bannerInfo.TextColor
         }
         });
-
         var bannerHtml = "";
+        var specialGold = [
+            "Npl_Coop_Season03_Lv03",
+            "Npl_Lot_Season01_Lv01",
+            "Npl_Lot_Season02_Lv01",
+            "Npl_Lot_Season03_Lv01"
+        ]
         for (const img of bannerAsset) {
-            var colorAttr = 
-            "r='" + img.textColor.R + 
-            "' g='" + img.textColor.G + 
-            "' b='" + img.textColor.B + "'";
+            var colorAttr;
+            if(specialGold.some( (id) => img.source.indexOf(id) !== -1 )){
+                colorAttr = "r='0.2549' g='0.1647' b='0'";
+            }else{
+                colorAttr = 
+                "r='" + img.textColor.R + 
+                "' g='" + img.textColor.G + 
+                "' b='" + img.textColor.B + "'";
+            }
             bannerHtml += "<img src='"+img.source+"' "+ colorAttr +">";
         }
         $(".bannerList").html(bannerHtml);
@@ -107,8 +112,8 @@ function setUpModalOpenEvent(){
     $('.md-trigger').click(function(event){
         $(".md-modal").css("top", modalTop);
         $(".md-modal").css("opacity", 1);
-        $(document.body).addClass("noscroll");
         setUpBannerClickEvent();
+        $(".bannerList").scrollTop(0);
     });
     $(".closeBT").click(modalClose);
 }
@@ -116,9 +121,7 @@ function setUpModalOpenEvent(){
 function modalClose(){
     $(".md-modal").css("top","-"+modalTop);
     $(".md-modal").css("opacity", 0);
-    $(document.body).removeClass("noscroll");    
 }
-
 
 function setUpBannerClickEvent(){
     $(".bannerList img").click(function(event){
@@ -172,25 +175,17 @@ function setUpBannerLangEvents(){
     });
 }
 
+//onclick textInput ref : https://stackoverflow.com/questions/6814062/using-javascript-to-change-some-text-into-an-input-field-when-clicked-on
 function setupBannerNameChange(){
     document.getElementById('editable').onclick = function(event) {
         var span, input, text;
-
-        // Get the event (handle MS difference)
         event = event || window.event;
-
-        // Get the root element of the event (handle MS difference)
         span = event.target;
 
-        // If it's a span...
+
         if (span && span.tagName.toUpperCase() === "SPAN") {
-            // Hide it
             span.style.display = "none";
-
-            // Get its text
             text = span.innerHTML;
-
-            // Create an input
             input = document.createElement("input");
             input.type = "text";
             input.value = text;
@@ -215,16 +210,11 @@ function setupBannerNameChange(){
             if ($(".name input").val().length >= max_chars) {
                 $(this).val($(this).val().substr(0, max_chars));
             }
-            // Focus it, hook blur to undo
+
             input.focus();
             input.onblur = function() {
-                // Remove the input
                 span.parentNode.removeChild(input);
-
-                // Update the span
                 span.innerHTML = input.value == "" ? "&nbsp;" : input.value;
-
-                // Show the span again
                 span.style.display = "";
             };
         }
@@ -249,6 +239,12 @@ function swapTitleLang(){
     $('.bannerPreview .title span:first-child').html(adj);
     $('.bannerPreview .title span:last-child').html(selectedSub[curLangIndex]);
     $('.bannerPreview .title').css("font-family","'Splat-text', '"+fontList[curLangIndex]+"'");
+}
+
+function selectionInit(){
+    curLangIndex = 1;
+    $('div:contains("3000"):not(:has(*))').parent().trigger("click");
+    $('input[id^="comboBox"]').trigger("change");
 }
 
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery

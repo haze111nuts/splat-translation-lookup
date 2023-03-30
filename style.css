@@ -64,7 +64,9 @@
   font-weight: normal;
 }
 
-
+/*===================*/
+/*===   General   ===*/
+/*===================*/
 *{
   margin: 0px;
   padding: 0px; 
@@ -85,7 +87,9 @@ ul {
   list-style: none;
 }
 
-
+/*===============*/
+/*===   Main  ===*/
+/*===============*/
 .headerWrap{
   width: 80%;
   margin: 0 auto;
@@ -109,7 +113,6 @@ h2{
   font-size: 1rem;
   /* font-family: 'Splat-text', "DFPT_AZ5"; */
 }
-
 .main{
   width: 1140px;
   margin: 0px auto;
@@ -119,7 +122,9 @@ h2{
   margin-top: 20px;
 }
 
-
+/*==========================*/
+/*===   Banner Section   ===*/
+/*==========================*/
 .bannerSideBT, .closeBT, .title, #editable span{
   cursor: pointer;
 }
@@ -136,9 +141,9 @@ h2{
   height: 20px;
   width: 20px;
   margin: 0 10px;
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
 }
 .prev{
   width: 0; 
@@ -177,7 +182,7 @@ h2{
   color: white;
 }
 .bannerPreview .title{
-  font-family: "Splat-text";
+  font-family: "Splat-text", "Kurokane";
   font-size: 2.2rem;
   left: 2%;
   top: 4.7%;
@@ -206,9 +211,6 @@ h2{
   font-size: 4.2rem;
   background-color: rgba(255 255 255/0.3);
 }
-.error{
-  color: rgb(134, 0, 0) !important;
-}
 .bannerPreview .number{
   font-family: "Splat-text";
   font-size: 1.5rem;
@@ -216,6 +218,36 @@ h2{
   bottom: 5%;
   z-index: 1000;
   line-height: 100%;
+}
+
+/*=========================*/
+/*===   Modal Section   ===*/
+/*=========================*/
+.md-modal {
+	position: fixed;
+	top: -50%;
+	left: 50%;
+	width: 85%;
+	max-width: 760px;
+	min-width: 320px;
+	height: auto;
+	z-index: 2000;
+  opacity: 0;
+	/* visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden; */
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.md-content {
+	position: relative;
+	margin: 0 auto;
 }
 .bannerPopUpLabel{
   font-size: 1rem;
@@ -285,6 +317,9 @@ h2{
   background-color: #ddd;
 }
 
+/*=============================*/
+/*===   SearchBox Section   ===*/
+/*=============================*/
 .searchBoxSection > div{
   color: white;
   background-color: #222;
@@ -325,6 +360,9 @@ h2{
   box-shadow: inset 3px 3px 2px rgb(0 0 0 / 0.2);
 }
 
+/*==========================*/
+/*===   Result Section   ===*/
+/*==========================*/
 .resultSection{
   padding: 20px 0;
   margin: 30px auto;
@@ -343,7 +381,6 @@ h2{
 #resultSub{
   text-align: left;
 }
-
 .dataList li:hover{
   background-color: #333;
   cursor: pointer;
@@ -354,7 +391,6 @@ h2{
   outline: 2px solid rgb(208, 226, 43);
   border-radius: 5px;
 }
-
 .dataList li div{
   font-size: 14px;
   display:inline-block;
@@ -381,6 +417,9 @@ h2{
   color:rgb(166, 187, 194)
 }
 
+/*==========================*/
+/*===   Footer Section   ===*/
+/*==========================*/
 .creditPanel{
   padding:20px;
   background: #222;
@@ -406,12 +445,18 @@ h2{
   box-shadow: 3px 3px 0 rgb(148, 142, 236);
 }
 .creditPanel li a{
-  color:#aaa;
+  color: #aaa;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.creditPanel li a:hover{
+  color: rgb(255 255 255);
 }
 
-.fade {
-  opacity: 1;
-}
+/*========================*/
+/*===   Extra Stuff   ===*/
+/*=======================*/
 ::selection {
   background: rgb(110 110 110);
 }
@@ -424,7 +469,6 @@ h2{
 .resultSection ::-moz-selection {
   background: rgba(105, 105, 105, 0.7);
 }
-
 ::-webkit-scrollbar {
   width: 18px;
 }
@@ -443,33 +487,6 @@ h2{
 ::-webkit-scrollbar-thumb:hover {
   background-color: #111;
 }
-
-.md-modal {
-	position: fixed;
-	top: -50%;
-	left: 50%;
-	width: 85%;
-	max-width: 760px;
-	min-width: 320px;
-	height: auto;
-	z-index: 2000;
-  opacity: 0;
-	/* visibility: hidden;
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	backface-visibility: hidden; */
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	-moz-transform: translateX(-50%) translateY(-50%);
-	-ms-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-}
-.md-content {
-	position: relative;
-	margin: 0 auto;
-}
 .blur{
   -webkit-filter: blur(3px);
 	-moz-filter: blur(3px);
@@ -477,6 +494,9 @@ h2{
 }
 .noscroll {
   overflow: hidden;
+}
+.error{
+  color: rgb(134, 0, 0) !important;
 }
 
 /* 
