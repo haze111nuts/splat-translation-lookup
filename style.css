@@ -85,7 +85,9 @@ body{
 ul {
   list-style: none;
 }
-
+.bannerSideBT, .closeBT, .title, #editable span, .sortBT{
+  cursor: pointer;
+}
 /*===============*/
 /*===   Main  ===*/
 /*===============*/
@@ -124,9 +126,6 @@ h2{
 /*==========================*/
 /*===   Banner Section   ===*/
 /*==========================*/
-.bannerSideBT, .closeBT, .title, #editable span{
-  cursor: pointer;
-}
 .bannerNav{
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -367,6 +366,26 @@ h2{
   margin: 30px auto;
   background-color: #474747;
   border-radius: 10px;
+  position: relative;
+}
+.sortBT{
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: url(assets/descending.png) no-repeat;
+  background-size: cover;
+}
+.sortBT:hover{
+  background-color: rgb(208, 226, 43);
+  border-radius: 8px;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;  
+}
+.sorted{
+  background-color: rgb(208, 226, 43);  
 }
 .resultSection ul{
   list-style: none;
@@ -407,13 +426,13 @@ h2{
 }
 .dataList li .USen{
   line-height: 1.4rem;
-  color:rgb(208, 226, 43)
+  color:rgb(208, 226, 43);
 }
 .dataList li .JPja{
-  color:rgb(148, 142, 236)
+  color:rgb(148, 142, 236);
 }
 .dataList li .TWzh{
-  color:rgb(166, 187, 194)
+  color:rgb(166, 187, 194);
 }
 
 /*==========================*/
