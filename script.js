@@ -103,10 +103,13 @@ function getBannerImage() {
 }
 
 var modalTop = "50%"
+var modalTop = "50%"
 function setUpModalOpenEvent(){
     $('.md-trigger').click(function(event){
         $(".md-modal").css("top", modalTop);
+        $(".md-modal").css("top", modalTop);
         $(".md-modal").css("opacity", 1);
+        $(document.body).addClass("noscroll");
         $(document.body).addClass("noscroll");
         setUpBannerClickEvent();
     });
@@ -117,7 +120,15 @@ function modalClose(){
     $(".md-modal").css("top","-"+modalTop);
     $(".md-modal").css("opacity", 0);
     $(document.body).removeClass("noscroll");    
+    $(".closeBT").click(modalClose);
 }
+
+function modalClose(){
+    $(".md-modal").css("top","-"+modalTop);
+    $(".md-modal").css("opacity", 0);
+    $(document.body).removeClass("noscroll");    
+}
+
 
 
 function setUpBannerClickEvent(){
@@ -165,14 +176,8 @@ function setUpBannerTitleClickEvents(){
 }
 
 function setUpBannerLangEvents(){
-    $('.next').click(function(event){
+    $('.title').click(function(event){
         curLangIndex = curLangIndex < 2? curLangIndex+1 : 0;
-        swapTitleLang();
-        adjustLongTitle();
-    });
-
-    $('.prev').click(function(event){
-        curLangIndex = curLangIndex <= 0 ? 2 : curLangIndex-1;
         swapTitleLang();
         adjustLongTitle();
     });
@@ -200,10 +205,27 @@ function setupBannerNameChange(){
             input = document.createElement("input");
             input.type = "text";
             input.value = text;
-            input.size = Math.max(text.length / 4 * 3, 4);
-            input.maxlength = "20";            
+            input.size = Math.max(text.length /4 * 3, 4);         
             span.parentNode.insertBefore(input, span);
 
+            //limit max character of player name
+            var max_chars = 10;
+            $('.name input').keydown( function(e){
+                if ($(this).val().length >= max_chars) { 
+                    $(this).val($(this).val().substr(0, max_chars));
+                    $(this).addClass("error");
+                }
+                console.log(playerNameCheck($(this).val()));
+            });
+            $('.name input').keyup( function(e){
+                if ($(this).val().length >= max_chars) { 
+                    $(this).val($(this).val().substr(0, max_chars));
+                    $(this).removeClass("error");
+                }
+            });
+            if ($(".name input").val().length >= max_chars) {
+                $(this).val($(this).val().substr(0, max_chars));
+            }
             // Focus it, hook blur to undo
             input.focus();
             input.onblur = function() {
@@ -218,6 +240,10 @@ function setupBannerNameChange(){
             };
         }
     };    
+}
+
+function playerNameCheck(name){
+    return (name >= "\u3040" && name <= "\u309f") || (name >= "\u30a0" && name <= "\u30ff");
 }
 
 function adjustLongTitle(){
@@ -237,7 +263,7 @@ function swapTitleLang(){
     var adj = curLangIndex==0? selectedAdj[curLangIndex]+" ":selectedAdj[curLangIndex]; 
     $('.bannerPreview .title span:first-child').html(adj);
     $('.bannerPreview .title span:last-child').html(selectedSub[curLangIndex]);
-    $('.bannerPreview .title').css("font-family","'Splat-text', '"+fontList[curLangIndex]+"'");    
+    $('.bannerPreview .title').css("font-family","'Splat-text', '"+fontList[curLangIndex]+"'");
 }
 
 // search code ref: https://stackoverflow.com/questions/10686008/building-a-quick-search-box-with-jquery
