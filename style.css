@@ -72,6 +72,8 @@
 html{
   text-align: center;
   background-color: #a5a5a5;
+  background-image: url(assets/bg.png);
+  background-attachment: fixed;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
@@ -87,20 +89,21 @@ ul {
 .headerWrap{
   width: 80%;
   margin: 0 auto;
-  margin-top: 0 !important;
-  padding: 5px 0 10px 0;
-  background-color: #222;
+  margin-top: 15px !important;
+  /* padding: 10px 0; */
+  /* background-color: #222;
   border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
+  border-bottom-left-radius: 30px; */
 }
 h1, h2{
-  color: #fff;
-  font-weight: 100;
+  color: #222;
 }
 h1{
   font-family: "Splat-text";
   line-height: 150%;
-  text-shadow: 1px 3px 0px rgba(169 194 32/0.7);
+  font-weight: 100;
+  text-shadow: 1px 3px 0px rgba(0 0 0/0.4);
+  /* text-shadow: 1px 3px 0px rgba(169 194 32/0.7); */
 }
 h2{
   font-size: 1rem;
@@ -381,10 +384,10 @@ h2{
   background: #222;
   color: #aaa;
 }
-
 .creditPanel ul > li, .creditPanel li img, .creditPanel li div:last-child{
   display:inline-block;
   vertical-align:middle;
+  line-height: 120%;
 }
 .creditPanel li div:last-child span{
   font-weight: bold;
@@ -398,6 +401,10 @@ h2{
   border-radius: 50px;
   background-color: #777;
   margin-right: 3px;
+  box-shadow: 3px 3px 0 rgb(148, 142, 236);
+}
+.creditPanel li a{
+  color:#aaa;
 }
 
 .fade {

@@ -231,10 +231,6 @@ function setupBannerNameChange(){
     };    
 }
 
-function playerNameCheck(name){
-    return (name >= "\u3040" && name <= "\u309f") || (name >= "\u30a0" && name <= "\u30ff");
-}
-
 function adjustLongTitle(){
     var size;
     var desired_height = 36.8;
