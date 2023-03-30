@@ -104,6 +104,8 @@ function getBannerImage() {
             bannerHtml += "<img src='"+img.source+"' "+ colorAttr +">";
         }
         $(".bannerList").html(bannerHtml);
+        $(".bannerList img[src*='Npl_Tutorial00']").addClass("selectedBanner");
+
     });
 }
 
