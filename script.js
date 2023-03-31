@@ -46,6 +46,7 @@ function loadSubjectTitleResult(data){
 function loadData(data){
     loadAdjectiveTitleResult(data);
     loadSubjectTitleResult(data);
+    sort("id");
 }
 
 function cleanUpData(text){
