@@ -190,49 +190,93 @@ function setUpBannerLangEvents(){
 
 //onclick textInput ref : https://stackoverflow.com/questions/6814062/using-javascript-to-change-some-text-into-an-input-field-when-clicked-on
 function setUpBannerNameChange(){
-    document.getElementById('editable').onclick = function(event) {
-        var span, input, text;
-        event = event || window.event;
-        span = event.target;
+    $(".editable span").click(function (event) {
+        var span = $(this);
+        span.css("display", "none");
 
-        if (span && span.tagName.toUpperCase() === "SPAN") {
-            span.style.display = "none";
-            text = span.innerHTML;
-            input = document.createElement("input");
-            input.type = "text";
-            input.value = text;
-            input.size = text.length /4 * 3;         
-            span.parentNode.insertBefore(input, span);
+        $("<input></input>").insertBefore(span);
+        var input = $(this).siblings("input");
+        input.val(span.text());
+        input.attr("type","text");
+        input.attr("size", span.text().length /4 * 3);
 
-            //limit max character of player name
-            var max_chars = 10;
-            $('.name input').keydown( function(e){
-                if ($(this).val().length > max_chars) { 
-                    $(this).val($(this).val().substr(0, max_chars));
-                }
-            });
-            $('.name input').keyup( function(e){
-                if ($(this).val().length > max_chars) { 
-                    $(this).val($(this).val().substr(0, max_chars));
-                }
-            });
-            if ($(".name input").val().length >= max_chars) {
-                $(this).val($(this).val().substr(0, max_chars));
+        //limit max character of player name
+        $(".name input").keydown( function(e){
+            limitInputChar(10, input);
+        });
+        $(".name input").keyup( function(e){
+            limitInputChar(10, input);
+        });
+        $(".number input").keydown( function(e){
+            limitInputChar(4, input);
+        });
+        $(".number input").keyup( function(e){
+            limitInputChar(4, input);
+            this.value = this.value.replace(/[^0-9\.]/g,'');
+        });
+
+        input.keypress(function(e) {
+            if(e.which == 13) {
+                input.blur();
             }
-            $(".name input").keypress(function(e) {
-                if(e.which == 13) {
-                    input.blur();
-                }
-            });
-            input.focus();
-            input.onblur = function() {
-                span.parentNode.removeChild(input);
-                span.innerHTML = input.value == "" ? "?" : input.value;
-                span.style.display = "";
-            };
+        });
+        input.focus();
+        input.blur(function() {
+            input.remove();
+            span.css("display", "inline");
+            span.html(input.val() == "" ? "?" : input.val())
+        });
+    });
 
+    function limitInputChar(max_chars, el){
+        if ( el.val().length > max_chars) { 
+            el.val( el.val().substr(0, max_chars));
         }
-    };    
+    }
+
+    // document.getElementById('editable').onclick = function(event) {
+    //     var span, input, text;
+    //     event = event || window.event;
+    //     span = event.target;
+
+    //     if (span && span.tagName.toUpperCase() === "SPAN") {
+    //         span.style.display = "none";
+    //         text = span.innerHTML;
+    //         input = document.createElement("input");
+    //         input.type = "text";
+    //         input.value = text;
+    //         input.size = text.length /4 * 3;         
+    //         span.parentNode.insertBefore(input, span);
+
+    //         //limit max character of player name
+    //         var max_chars = 10;
+    //         $('.name input').keydown( function(e){
+    //             if ($(this).val().length > max_chars) { 
+    //                 $(this).val($(this).val().substr(0, max_chars));
+    //             }
+    //         });
+    //         $('.name input').keyup( function(e){
+    //             if ($(this).val().length > max_chars) { 
+    //                 $(this).val($(this).val().substr(0, max_chars));
+    //             }
+    //         });
+    //         if ($(".name input").val().length >= max_chars) {
+    //             $(this).val($(this).val().substr(0, max_chars));
+    //         }
+    //         $(".name input").keypress(function(e) {
+    //             if(e.which == 13) {
+    //                 input.blur();
+    //             }
+    //         });
+    //         input.focus();
+    //         input.onblur = function() {
+    //             span.parentNode.removeChild(input);
+    //             span.innerHTML = input.value == "" ? "?" : input.value;
+    //             span.style.display = "";
+    //         };
+
+    //     }
+    // };    
 }
 
 function adjustLongTitle(){

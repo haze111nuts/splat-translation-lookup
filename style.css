@@ -199,7 +199,7 @@ h2{
   transform: translateX(-50%) translateY(-50%);
   z-index: 999;
 }
-#editable{
+.name .editable{
   position: relative;
   width: 700px;
   z-index: -5;
@@ -216,6 +216,12 @@ h2{
   bottom: 5%;
   z-index: 1000;
   line-height: 100%;
+}
+.bannerPreview .number input{
+  font-family: "Splat-text";
+  font-size: 1.3rem;
+  background-color: rgba(255 255 255/0.3);
+  height: 30px;
 }
 
 /*=========================*/
