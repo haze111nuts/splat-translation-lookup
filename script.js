@@ -105,11 +105,10 @@ function getBannerImage() {
         }
         $(".bannerList").html(bannerHtml);
         $(".bannerList img[src*='Npl_Tutorial00']").addClass("selectedBanner");
-
     });
 }
 
-var modalTop = "50%"
+var modalTop = "50%";
 function setUpModalOpenEvent(){
     $('.md-trigger').click(function(event){
         $(".md-modal").css("top", modalTop);
@@ -173,9 +172,13 @@ function setUpSortResultEvent(){
     $(".sortBT").click(function(event){
         if ($(this).hasClass("sorted")) {
             //if dataList is currently sorted and button is clicked
+            sort("id");
             $(this).removeClass("sorted");
         }else{
             $(this).addClass("sorted");
+            sort("USen");
+            // sort("JPja") TODO: sort by hiragana using ruby
+            // sort("TWzh") TODO: sort by chinese using stroke
         }
     })
 }
@@ -231,52 +234,60 @@ function setUpBannerNameChange(){
     function limitInputChar(max_chars, el){
         if ( el.val().length > max_chars) { 
             el.val( el.val().substr(0, max_chars));
+            //limit max character of player name
+            var max_chars = 10;
+            $('.name input').keydown( function(e){
+                if ($(this).val().length > max_chars) { 
+                    $(this).val($(this).val().substr(0, max_chars));
+                }
+            });
+            $('.name input').keyup( function(e){
+                if ($(this).val().length > max_chars) { 
+                    $(this).val($(this).val().substr(0, max_chars));
+                }
+            });
+            if ($(".name input").val().length >= max_chars) {
+                $(this).val($(this).val().substr(0, max_chars));
+            }
+            $(".name input").keypress(function(e) {
+                if(e.which == 13) {
+                    input.blur();
+                }
+            });
+            input.focus();
+            input.onblur = function() {
+                span.parentNode.removeChild(input);
+                span.innerHTML = input.value == "" ? "?" : input.value;
+                span.style.display = "";
+            };
         }
     }
+}
 
-    // document.getElementById('editable').onclick = function(event) {
-    //     var span, input, text;
-    //     event = event || window.event;
-    //     span = event.target;
+function sort(divId) {
+    var uls = ["resultAdj","resultSub"];
 
-    //     if (span && span.tagName.toUpperCase() === "SPAN") {
-    //         span.style.display = "none";
-    //         text = span.innerHTML;
-    //         input = document.createElement("input");
-    //         input.type = "text";
-    //         input.value = text;
-    //         input.size = text.length /4 * 3;         
-    //         span.parentNode.insertBefore(input, span);
+    for (ulId of uls) {
+        var sorted = $($("ul#"+ ulId +" li").toArray().sort(function(a, b){
+            var aVal = $(a).find('.'+divId).text();
+                bVal = $(b).find('.'+divId).text();
+            return aVal.localeCompare(bVal);
+        }));
+      $("ul#"+ulId).html(sorted);
+    }
+}
 
-    //         //limit max character of player name
-    //         var max_chars = 10;
-    //         $('.name input').keydown( function(e){
-    //             if ($(this).val().length > max_chars) { 
-    //                 $(this).val($(this).val().substr(0, max_chars));
-    //             }
-    //         });
-    //         $('.name input').keyup( function(e){
-    //             if ($(this).val().length > max_chars) { 
-    //                 $(this).val($(this).val().substr(0, max_chars));
-    //             }
-    //         });
-    //         if ($(".name input").val().length >= max_chars) {
-    //             $(this).val($(this).val().substr(0, max_chars));
-    //         }
-    //         $(".name input").keypress(function(e) {
-    //             if(e.which == 13) {
-    //                 input.blur();
-    //             }
-    //         });
-    //         input.focus();
-    //         input.onblur = function() {
-    //             span.parentNode.removeChild(input);
-    //             span.innerHTML = input.value == "" ? "?" : input.value;
-    //             span.style.display = "";
-    //         };
+function sort(divId) {
+    var uls = ["resultAdj","resultSub"];
 
-    //     }
-    // };    
+    for (ulId of uls) {
+        var sorted = $($("ul#"+ ulId +" li").toArray().sort(function(a, b){
+            var aVal = $(a).find('.'+divId).text();
+                bVal = $(b).find('.'+divId).text();
+            return aVal.localeCompare(bVal);
+        }));
+      $("ul#"+ulId).html(sorted);
+    }
 }
 
 function adjustLongTitle(){
@@ -325,5 +336,5 @@ $(document).ready(function () {
     setUpBannerNameChange();
 
     $('#comboBoxAdj').on('keydown keypress keyup change', {selector: "#resultAdj li"}, filterSearch);
-    $('#comboBoxSub').on('keydown keypress keyup change', {selector: "#resultSub li"}, filterSearch);    
+    $('#comboBoxSub').on('keydown keypress keyup change', {selector: "#resultSub li"}, filterSearch);
 });
