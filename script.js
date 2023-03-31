@@ -214,7 +214,6 @@ function setUpBannerNameChange(){
                     $(this).attr('size', $(this).val().length /4 * 3);
             });
             $('.name input').keyup( function(e){
-                console.log($(this).val().length);
                 if ($(this).val().length > max_chars) { 
                     $(this).val($(this).val().substr(0, max_chars));
                 }
