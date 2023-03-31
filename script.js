@@ -169,6 +169,17 @@ function setUpBannerTitleClickEvents(){
     });
 }
 
+function setUpSortResultEvent(){
+    $(".sortBT").click(function(event){
+        if ($(this).hasClass("sorted")) {
+            //if dataList is currently sorted and button is clicked
+            $(this).removeClass("sorted");
+        }else{
+            $(this).addClass("sorted");
+        }
+    })
+}
+
 function setUpBannerLangEvents(){
     $('.title').click(function(event){
         curLangIndex = curLangIndex < 2? curLangIndex+1 : 0;
@@ -178,7 +189,7 @@ function setUpBannerLangEvents(){
 }
 
 //onclick textInput ref : https://stackoverflow.com/questions/6814062/using-javascript-to-change-some-text-into-an-input-field-when-clicked-on
-function setupBannerNameChange(){
+function setUpBannerNameChange(){
     document.getElementById('editable').onclick = function(event) {
         var span, input, text;
         event = event || window.event;
@@ -196,15 +207,16 @@ function setupBannerNameChange(){
             //limit max character of player name
             var max_chars = 10;
             $('.name input').keydown( function(e){
-                if ($(this).val().length >= max_chars) { 
+                if ($(this).val().length > max_chars) { 
                     $(this).val($(this).val().substr(0, max_chars));
-                    $(this).addClass("error");
                 }
+                if(($(this).val().length /4 * 3) > 1.5)
+                    $(this).attr('size', $(this).val().length /4 * 3);
             });
             $('.name input').keyup( function(e){
-                if ($(this).val().length >= max_chars) { 
+                console.log($(this).val().length);
+                if ($(this).val().length > max_chars) { 
                     $(this).val($(this).val().substr(0, max_chars));
-                    $(this).removeClass("error");
                 }
             });
             if ($(".name input").val().length >= max_chars) {
@@ -218,7 +230,7 @@ function setupBannerNameChange(){
             input.focus();
             input.onblur = function() {
                 span.parentNode.removeChild(input);
-                span.innerHTML = input.value == "" ? "--" : input.value;
+                span.innerHTML = input.value == "" ? "?" : input.value;
                 span.style.display = "";
             };
 
@@ -265,10 +277,11 @@ function filterSearch(e) {
 $(document).ready(function () {
     getData();
     getBannerImage();
+    setUpSortResultEvent();
     setUpBannerTitleClickEvents();
     setUpBannerLangEvents();
     setUpModalOpenEvent();
-    setupBannerNameChange();
+    setUpBannerNameChange();
 
     $('#comboBoxAdj').on('keydown keypress keyup change', {selector: "#resultAdj li"}, filterSearch);
     $('#comboBoxSub').on('keydown keypress keyup change', {selector: "#resultSub li"}, filterSearch);    

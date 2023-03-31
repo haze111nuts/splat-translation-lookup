@@ -72,7 +72,7 @@
 }
 html{
   text-align: center;
-  background-color: #a5a5a5;
+  background-color: #9e9e9e;
   background-image: url(assets/bg.png);
   background-attachment: fixed;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -376,16 +376,13 @@ h2{
   right: 0;
   background: url(assets/descending.png) no-repeat;
   background-size: cover;
-}
-.sortBT:hover{
-  background-color: rgb(208, 226, 43);
   border-radius: 8px;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   transition: all 0.2s;  
 }
 .sorted{
-  background-color: rgb(208, 226, 43);  
+  background-color: rgb(208, 226, 43);
 }
 .resultSection ul{
   list-style: none;
@@ -503,7 +500,7 @@ h2{
   background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #111;
+  background-color: #000;
 }
 .blur{
   -webkit-filter: blur(3px);
@@ -513,9 +510,7 @@ h2{
 .noscroll {
   overflow: hidden;
 }
-.error{
-  color: rgb(134, 0, 0) !important;
-}
+
 
 /* 
 @media only screen and (max-width: 1200px) {
