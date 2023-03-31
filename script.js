@@ -277,19 +277,6 @@ function sort(divId) {
     }
 }
 
-function sort(divId) {
-    var uls = ["resultAdj","resultSub"];
-
-    for (ulId of uls) {
-        var sorted = $($("ul#"+ ulId +" li").toArray().sort(function(a, b){
-            var aVal = $(a).find('.'+divId).text();
-                bVal = $(b).find('.'+divId).text();
-            return aVal.localeCompare(bVal);
-        }));
-      $("ul#"+ulId).html(sorted);
-    }
-}
-
 function adjustLongTitle(){
     var size;
     var desired_height = 36.8;
