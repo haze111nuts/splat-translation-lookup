@@ -172,9 +172,13 @@ function setUpSortResultEvent(){
     $(".sortBT").click(function(event){
         if ($(this).hasClass("sorted")) {
             //if dataList is currently sorted and button is clicked
+            sort("id");
             $(this).removeClass("sorted");
         }else{
             $(this).addClass("sorted");
+            sort("USen");
+            // sort("JPja") TODO: sort by hiragana using ruby
+            // sort("TWzh") TODO: sort by chinese using stroke
         }
     })
 }
@@ -231,6 +235,19 @@ function setUpBannerNameChange(){
             };
         }
     };    
+}
+
+function sort(divId) {
+    var uls = ["resultAdj","resultSub"];
+
+    for (ulId of uls) {
+        var sorted = $($("ul#"+ ulId +" li").toArray().sort(function(a, b){
+            var aVal = $(a).find('.'+divId).text();
+                bVal = $(b).find('.'+divId).text();
+            return aVal.localeCompare(bVal);
+        }));
+      $("ul#"+ulId).html(sorted);
+    }
 }
 
 function adjustLongTitle(){
