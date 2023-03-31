@@ -105,11 +105,10 @@ function getBannerImage() {
         }
         $(".bannerList").html(bannerHtml);
         $(".bannerList img[src*='Npl_Tutorial00']").addClass("selectedBanner");
-
     });
 }
 
-var modalTop = "50%"
+var modalTop = "50%";
 function setUpModalOpenEvent(){
     $('.md-trigger').click(function(event){
         $(".md-modal").css("top", modalTop);
@@ -221,7 +220,6 @@ function setupBannerNameChange(){
                 span.innerHTML = input.value == "" ? "--" : input.value;
                 span.style.display = "";
             };
-
         }
     };    
 }
@@ -271,5 +269,5 @@ $(document).ready(function () {
     setupBannerNameChange();
 
     $('#comboBoxAdj').on('keydown keypress keyup change', {selector: "#resultAdj li"}, filterSearch);
-    $('#comboBoxSub').on('keydown keypress keyup change', {selector: "#resultSub li"}, filterSearch);    
+    $('#comboBoxSub').on('keydown keypress keyup change', {selector: "#resultSub li"}, filterSearch);
 });
