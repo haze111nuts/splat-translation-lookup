@@ -201,7 +201,7 @@ function setUpBannerNameChange(){
             input = document.createElement("input");
             input.type = "text";
             input.value = text;
-            input.size = Math.max(text.length /4 * 3, 4);         
+            input.size = text.length /4 * 3;         
             span.parentNode.insertBefore(input, span);
 
             //limit max character of player name
@@ -210,8 +210,6 @@ function setUpBannerNameChange(){
                 if ($(this).val().length > max_chars) { 
                     $(this).val($(this).val().substr(0, max_chars));
                 }
-                if(($(this).val().length /4 * 3) > 1.5)
-                    $(this).attr('size', $(this).val().length /4 * 3);
             });
             $('.name input').keyup( function(e){
                 if ($(this).val().length > max_chars) { 
