@@ -5,7 +5,7 @@ var selectedSub = ["","",""];
 var defaultTitleSize = "2.3rem";
 var curLangIndex = 0;
 
-const source = "https://raw.githubusercontent.com/Leanny/leanny.github.io/master/splat3/";
+const source = "https://leanny.github.io/splat3/";
 
 function loadAdjectiveTitleResult(data){
     var titleCategory ="CommonMsg/Byname/BynameAdjective";
