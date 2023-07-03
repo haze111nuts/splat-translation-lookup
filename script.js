@@ -47,6 +47,7 @@ function loadData(data){
     loadAdjectiveTitleResult(data);
     loadSubjectTitleResult(data);
     sort("id");
+    $('div:contains("0194_0")').siblings('.TWzh').css("position","absolute");
 }
 
 function cleanUpData(text){
@@ -90,7 +91,8 @@ function getBannerImage() {
             "Npl_Coop_Season03_Lv03",
             "Npl_Lot_Season01_Lv01",
             "Npl_Lot_Season02_Lv01",
-            "Npl_Lot_Season03_Lv01"
+            "Npl_Lot_Season03_Lv01",
+            "Npl_Lot_Season04_Lv01"
         ]
         for (const img of bannerAsset) {
             var colorAttr;
