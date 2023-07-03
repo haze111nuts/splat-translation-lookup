@@ -47,6 +47,7 @@ function loadData(data){
     loadAdjectiveTitleResult(data);
     loadSubjectTitleResult(data);
     sort("id");
+        $('div:contains("0194_0")').siblings('.TWzh').css("position","absolute");
 }
 
 function cleanUpData(text){
