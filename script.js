@@ -71,7 +71,7 @@ function getData() {
 
 function getBannerImage() {
     var versionSource = source + "versions.json";
-    var imgSource = (id) => source + "images/npl/" + id + ".webp"; // or png
+    var imgSource = (id) => source + "images/npl/" + id + ".png";
     $.getJSON(versionSource)
     .then(versionData => {
         var latestVersion = versionData[versionData.length-1];
